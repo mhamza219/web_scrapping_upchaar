@@ -1,14 +1,4 @@
 <turbo-frame id="scraper">
-  <%= form_with url: amazon_products_path, method: :post do |form| %>
-    <div>
-      <%= form.label :url, 'Amazon Product URL:' %>
-      <%= form.text_field :url, size: 80 %>
-    </div>
-    <div>
-      <%= form.submit 'Scrape Product' %>
-    </div>
-  <% end %>
-
   <% if defined?(@result) && @result.present? %>
     <hr>
     <div id="scrape-result" style="margin-top: 2em; padding: 1em; background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px; max-width: 700px;">
