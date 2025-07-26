@@ -1,0 +1,34 @@
+<h1>Amazon Product Scraper</h1>
+<turbo-frame id="scraper">
+  <%= form_with url: amazon_products_path, method: :post do |form| %>
+    <div>
+      <%= form.label :url, 'Amazon Product URL:' %>
+      <%= form.text_field :url, size: 80 %>
+    </div>
+    <div>
+      <%= form.submit 'Scrape Product' %>
+    </div>
+  <% end %>
+
+  <% if defined?(@result) && @result.present? %>
+    <hr>
+    <div id="scrape-result" style="margin-top: 2em; padding: 1em; background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px; max-width: 700px;">
+      <h2>Scraped Product Details</h2>
+      <% if @result[:error] %>
+        <p style="color: red;"><%= @result[:error] %></p>
+        <% if @result[:html_snippet] %>
+          <pre style="max-width:600px; max-height:300px; overflow:auto; background:#eee; padding:10px;"><%= @result[:html_snippet] %></pre>
+        <% end %>
+      <% else %>
+        <ul>
+          <li><strong>Name:</strong> <%= @result[:name] %></li>
+          <li><strong>MRP:</strong> <%= @result[:mrp] %></li>
+          <li><strong>Actual Price:</strong> <%= @result[:actual_price] %></li>
+          <li><strong>Discount:</strong> <%= @result[:discount] %></li>
+          <li><strong>Price (fallback):</strong> <%= @result[:price] %></li>
+          <li><strong>Tax/VAT:</strong> <%= @result[:tax] %></li>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</turbo-frame> 
